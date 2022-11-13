@@ -20,11 +20,14 @@ public class MainDoctorFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main_doctor, container, false);
-        // Инициализация списка
+
         RecyclerView nurseRecyclerView = view.findViewById(R.id.nurse_list);
-        // Создаем адаптер
-        NurseRecyclerAdapter adapter = new NurseRecyclerAdapter(requireContext());
-        nurseRecyclerView.setAdapter(adapter);
+        NurseRecyclerAdapter nurseAdapter = new NurseRecyclerAdapter(requireContext());
+        nurseRecyclerView.setAdapter(nurseAdapter);
+
+        RecyclerView doctorRecycler = view.findViewById(R.id.doctor_list);
+        DoctorRecyclerAdapter doctorAdapter = new DoctorRecyclerAdapter(requireContext());
+        doctorRecycler.setAdapter(doctorAdapter);
 
 
         return view;

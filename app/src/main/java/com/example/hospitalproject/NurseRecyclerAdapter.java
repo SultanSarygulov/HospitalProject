@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NurseRecyclerAdapter extends RecyclerView.Adapter<NurseRecyclerAdapter.ViewHolder> {
+public class NurseRecyclerAdapter extends RecyclerView.Adapter<NurseRecyclerAdapter.NurseViewHolder> {
 
     private final LayoutInflater inflater;
     private List<String> nurses = Arrays.asList("Joane", "Jeniffer", "Anna", "Mohammed");
@@ -27,22 +27,24 @@ public class NurseRecyclerAdapter extends RecyclerView.Adapter<NurseRecyclerAdap
         return nurses.size();
     }
 
-    @NonNull
     @Override
-    public NurseRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.nurse_list_item, parent, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull NurseRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NurseRecyclerAdapter.NurseViewHolder holder, int position) {
         holder.name.setText(nurses.get(position));
 
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    @NonNull
+    @Override
+    public NurseRecyclerAdapter.NurseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.nurse_list_item, parent, false);
+        return new NurseViewHolder(view);
+    }
+
+
+
+    public static class NurseViewHolder extends RecyclerView.ViewHolder{
         final TextView name;
-        ViewHolder(View view){
+        NurseViewHolder(View view){
             super(view);
             name = view.findViewById(R.id.nurse_name);
         }
