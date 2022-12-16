@@ -40,18 +40,22 @@ public class LoginFragment extends Fragment {
 
         loginButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                if (!TextUtils.isEmpty(nameEt.getText()) && !TextUtils.isEmpty(passwordEt.getText())){
 
-                    if (nameEt.getText().toString().equals("Sultan Sarygulov") &&
-                            passwordEt.getText().toString().equals("123456")){
+                String name = nameEt.getText().toString().trim();
+                String password = passwordEt.getText().toString().trim();
+
+                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(password)){
+
+                    if (name.equals("Sultan Sarygulov") && password.equals("1")){
                         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_patientFragment);
-                    } else if ((nameEt.getText().toString().equals("Lord Doctorus")) &&
-                            passwordEt.getText().toString().equals("123456")){
+                    } else if (name.equals("Main") && password.equals("1")){
                         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_mainDoctorFragment);
                     } else {
+
                         Toast.makeText(requireContext(), "There is no such account!", Toast.LENGTH_LONG).show();
                     }
                 } else {
+
                     Toast.makeText(requireContext(), "Fill all fields!", Toast.LENGTH_LONG).show();
                 }
             }
