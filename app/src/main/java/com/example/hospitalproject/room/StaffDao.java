@@ -20,4 +20,13 @@ public interface StaffDao {
     @Query("SELECT * FROM staff_table WHERE position = 'Doctor'")
     List<Staff> getDoctors();
 
+    @Query("SELECT * FROM staff_table WHERE position = 'Nurse'")
+    List<Staff> getNurses();
+
+    @Query("SELECT * FROM  staff_table ORDER BY salary DESC LIMIT 1")
+    Staff getMostPaid();
+
+    @Query("SELECT * FROM  staff_table ORDER BY salary ASC LIMIT 1")
+    Staff getLeastPaid();
+
 }

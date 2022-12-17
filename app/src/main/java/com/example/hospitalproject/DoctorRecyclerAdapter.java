@@ -31,14 +31,13 @@ public class DoctorRecyclerAdapter extends RecyclerView.Adapter<DoctorRecyclerAd
     }
 
     public void setList(List<Staff> newList){
-//        StaffUtilCallback diffCallback = new StaffUtilCallback(doctors, newList);
-//        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-//        doctors.clear();
-//        doctors.addAll(newList);
-//        diffResult.dispatchUpdatesTo(this);
-        this.doctors = newList;
-        notifyDataSetChanged();
-
+        StaffUtilCallback diffCallback = new StaffUtilCallback(doctors, newList);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+        doctors.clear();
+        doctors.addAll(newList);
+        diffResult.dispatchUpdatesTo(this);
+//        this.doctors = newList;
+//        notifyDataSetChanged();
     }
 
 

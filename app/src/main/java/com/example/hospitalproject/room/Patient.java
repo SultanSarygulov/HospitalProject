@@ -10,8 +10,13 @@ import java.util.Date;
 public class Patient {
     @PrimaryKey(autoGenerate = true)
     public int pid;
+
+    @ColumnInfo(name = "name")
     public String pName;
+
+    @ColumnInfo(name = "surname")
     public String pSurname;
-    @ColumnInfo(name = "employment_date")
-    public Date pEmploymentDate;
+
+    @ColumnInfo(name = "password")
+    public String pPassword;
 }

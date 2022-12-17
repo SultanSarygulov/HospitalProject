@@ -7,5 +7,5 @@
     <string name="doctor_list">Список докторов:</string>
     <string name="most_earning_doctor">Cотрудник с максимальной зарплатой:</string>
     <string name="least_earning_doctor">Сотрудник с минимальной зарплатой:</string>
-    <string name="patient_number">Количество пациентов: ?</string>
+    <string name="patient_number">Количество пациентов:</string>
 </resources>
