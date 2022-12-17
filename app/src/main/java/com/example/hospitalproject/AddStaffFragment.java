@@ -64,18 +64,13 @@ public class AddStaffFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
-
-
-
         addNewStaffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Staff newStaff = new Staff();
                 newStaff.sName = enterNameEt.getText().toString();
                 newStaff.sSurname = enterSurnameEt.getText().toString();
-//        newStaff.sSalary = Integer.parseInt(enterSalaryEt.getText().toString());
+                newStaff.sSalary = Integer.parseInt(enterSalaryEt.getText().toString());
                 newStaff.sPassword = enterPasswordEt.getText().toString();
                 newStaff.sPosition = args.getPosition();
 

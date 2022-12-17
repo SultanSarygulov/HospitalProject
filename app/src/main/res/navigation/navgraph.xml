@@ -16,6 +16,9 @@
         <argument
             android:name="newStaff"
             app:argType="com.example.hospitalproject.room.Staff" />
+        <action
+            android:id="@+id/action_mainDoctorFragment_to_deleteLoadingFragment"
+            app:destination="@id/deleteLoadingFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientFragment"
@@ -71,13 +74,25 @@
     <fragment
         android:id="@+id/addStaffFragment"
         android:name="com.example.hospitalproject.AddStaffFragment"
-        android:label="fragment_add_staff"
-        tools:layout="@layout/fragment_add_staff" >
+        android:label="Добавить сотрудника"
+        tools:layout="@layout/fragment_add_staff">
         <action
             android:id="@+id/action_addStaffFragment_to_mainDoctorFragment"
             app:destination="@id/mainDoctorFragment" />
         <argument
             android:name="position"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteLoadingFragment"
+        android:name="com.example.hospitalproject.DeleteLoadingFragment"
+        android:label="Загрузка"
+        tools:layout="@layout/fragment_delete_loading">
+        <action
+            android:id="@+id/action_deleteLoadingFragment_to_mainDoctorFragment"
+            app:destination="@id/mainDoctorFragment" />
+        <action
+            android:id="@+id/action_deleteLoadingFragment_to_mainDoctorFragment2"
+            app:destination="@id/mainDoctorFragment" />
     </fragment>
 </navigation>

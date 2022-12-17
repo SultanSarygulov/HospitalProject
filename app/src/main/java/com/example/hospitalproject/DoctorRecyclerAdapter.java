@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,10 +26,12 @@ public class DoctorRecyclerAdapter extends RecyclerView.Adapter<DoctorRecyclerAd
 
     private final LayoutInflater inflater;
     private List<Staff> doctors;
+    private final Listeners listener;
 
-    DoctorRecyclerAdapter(Context context){
+    DoctorRecyclerAdapter(Context context, Listeners listener){
         this.inflater = LayoutInflater.from(context);
         this.doctors = new ArrayList<>();
+        this.listener = listener;
     }
 
     public void setList(List<Staff> newList){
@@ -36,8 +40,6 @@ public class DoctorRecyclerAdapter extends RecyclerView.Adapter<DoctorRecyclerAd
         doctors.clear();
         doctors.addAll(newList);
         diffResult.dispatchUpdatesTo(this);
-//        this.doctors = newList;
-//        notifyDataSetChanged();
     }
 
 
@@ -46,12 +48,14 @@ public class DoctorRecyclerAdapter extends RecyclerView.Adapter<DoctorRecyclerAd
         final TextView surname;
         final TextView employmentDate;
         final FloatingActionButton deleteDoctorButton;
-        DoctorViewHolder(View view){
+        final Listeners listener;
+        DoctorViewHolder(View view, Listeners listener){
             super(view);
             name = view.findViewById(R.id.doctor_name);
             surname = view.findViewById(R.id.doctor_surname);
             employmentDate= view.findViewById(R.id.doctor_come_date);
             deleteDoctorButton = view.findViewById(R.id.delete_doctor_button);
+            this.listener = listener;
         }
 
         public void bind(Staff doctor){
@@ -59,6 +63,14 @@ public class DoctorRecyclerAdapter extends RecyclerView.Adapter<DoctorRecyclerAd
             name.setText(doctor.sName);
             surname.setText(doctor.sSurname);
             employmentDate.setText(doctor.sEmploymentDate);
+            deleteDoctorButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.deleteStaff(doctor);
+                    Navigation.findNavController(view).navigate(R.id.action_mainDoctorFragment_to_deleteLoadingFragment);
+                    Toast.makeText(view.getContext(), "Doctor was deleted", Toast.LENGTH_LONG).show();
+                }
+            });
 
         }
     }
@@ -67,7 +79,7 @@ public class DoctorRecyclerAdapter extends RecyclerView.Adapter<DoctorRecyclerAd
     @Override
     public DoctorRecyclerAdapter.DoctorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.doctor_list_item, parent, false);
-        return new DoctorViewHolder(view);
+        return new DoctorViewHolder(view, listener);
     }
 
     @Override

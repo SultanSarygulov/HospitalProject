@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
-public class MainDoctorFragment extends Fragment {
+public class MainDoctorFragment extends Fragment implements Listeners {
 
     Button addDoctor;
     Button addNurse;
@@ -58,12 +58,12 @@ public class MainDoctorFragment extends Fragment {
         patientNumTV = view.findViewById(R.id.patient_num);
 
         RecyclerView nurseRecyclerView = view.findViewById(R.id.nurse_list);
-        NurseRecyclerAdapter nurseAdapter = new NurseRecyclerAdapter(requireContext());
+        NurseRecyclerAdapter nurseAdapter = new NurseRecyclerAdapter(requireContext(), this);
         nurseAdapter.setList(getNursesList());
         nurseRecyclerView.setAdapter(nurseAdapter);
 
         RecyclerView doctorRecycler = view.findViewById(R.id.doctor_list);
-        DoctorRecyclerAdapter doctorAdapter = new DoctorRecyclerAdapter(requireContext());
+        DoctorRecyclerAdapter doctorAdapter = new DoctorRecyclerAdapter(requireContext(), this);
         doctorAdapter.setList(getDoctorsList());
         doctorRecycler.setAdapter(doctorAdapter);
 
@@ -108,6 +108,11 @@ public class MainDoctorFragment extends Fragment {
         List<Staff> doctorsList = db.staffDao().getDoctors();
 
         return doctorsList;
+    }
+
+    @Override
+    public void deleteStaff(Staff staff) {
+        db.staffDao().deleteStaff(staff);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
