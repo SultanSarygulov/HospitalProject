@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hospitalproject.room.HospitalDatabase;
+import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 
 import java.time.LocalDateTime;

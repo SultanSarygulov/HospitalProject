@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_patient" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.hospitalproject.LoginFragment"
+        android:name="com.example.hospitalproject.home.LoginFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_login" >
         <action
@@ -54,15 +54,26 @@
         android:id="@+id/doctorFragment"
         android:name="com.example.hospitalproject.DoctorFragment"
         android:label="Врач"
-        tools:layout="@layout/fragment_doctor" />
+        tools:layout="@layout/fragment_doctor" >
+        <argument
+            android:name="currentDoctor"
+            app:argType="com.example.hospitalproject.room.Staff" />
+        <action
+            android:id="@+id/action_doctorFragment_to_deleteLoadingFragment"
+            app:destination="@id/deleteLoadingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nurseFragment"
         android:name="com.example.hospitalproject.NurseFragment"
         android:label="Медсестра"
-        tools:layout="@layout/fragment_nurse" />
+        tools:layout="@layout/fragment_nurse" >
+        <argument
+            android:name="currentNurse"
+            app:argType="com.example.hospitalproject.room.Staff" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.hospitalproject.RegisterFragment"
+        android:name="com.example.hospitalproject.home.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -87,12 +98,5 @@
         android:id="@+id/deleteLoadingFragment"
         android:name="com.example.hospitalproject.DeleteLoadingFragment"
         android:label="Загрузка"
-        tools:layout="@layout/fragment_delete_loading">
-        <action
-            android:id="@+id/action_deleteLoadingFragment_to_mainDoctorFragment"
-            app:destination="@id/mainDoctorFragment" />
-        <action
-            android:id="@+id/action_deleteLoadingFragment_to_mainDoctorFragment2"
-            app:destination="@id/mainDoctorFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_delete_loading"/>
 </navigation>

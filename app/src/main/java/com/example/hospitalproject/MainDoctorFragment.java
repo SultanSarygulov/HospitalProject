@@ -11,21 +11,17 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.security.ConfirmationCallback;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.hospitalproject.room.HospitalDatabase;
+import com.example.hospitalproject.listeners.Listeners;
+import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 
 public class MainDoctorFragment extends Fragment implements Listeners {
 

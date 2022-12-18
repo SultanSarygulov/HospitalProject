@@ -17,10 +17,13 @@ public interface StaffDao {
     @Delete
     void deleteStaff(Staff staff);
 
-    @Query("SELECT * FROM staff_table WHERE position = 'Doctor'")
+    @Query("SELECT * FROM staff_table")
+    List<Staff> getAll();
+
+    @Query("SELECT * FROM staff_table WHERE position = 'Doctor' ORDER BY name")
     List<Staff> getDoctors();
 
-    @Query("SELECT * FROM staff_table WHERE position = 'Nurse'")
+    @Query("SELECT * FROM staff_table WHERE position = 'Nurse' ORDER BY name")
     List<Staff> getNurses();
 
     @Query("SELECT * FROM  staff_table ORDER BY salary DESC LIMIT 1")

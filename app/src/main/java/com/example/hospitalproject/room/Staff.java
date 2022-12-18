@@ -11,7 +11,6 @@ import java.util.Date;
 
 import kotlinx.parcelize.Parcelize;
 
-@Parcelize
 @Entity(tableName = "staff_table")
 public class Staff implements Parcelable {
     @PrimaryKey(autoGenerate = true)
