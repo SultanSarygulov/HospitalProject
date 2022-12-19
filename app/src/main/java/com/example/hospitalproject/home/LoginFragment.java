@@ -61,7 +61,7 @@ public class LoginFragment extends Fragment {
 
                     checkForStaff();
 
-                    checkForPatent();
+                    checkForPatient();
 
                     if (name.equals("Sultan Sarygulov") && password.equals("1")){
                         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_patientFragment);
@@ -88,9 +88,10 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private void checkForPatent() {
+    private void checkForPatient() {
 
         List<Patient> patientList = db.patientDao().getPatients();
+
 
         String nameInput = nameEt.getText().toString().trim();
         String passwordInput = passwordEt.getText().toString().trim();
@@ -98,7 +99,9 @@ public class LoginFragment extends Fragment {
         for (Patient patient:patientList){
             if ((patient.pName + " " + patient.pSurname).equals(nameInput) &&
                     (patient.pPassword).equals(passwordInput)){
-                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_patientFragment);
+
+                NavDirections action = LoginFragmentDirections.actionLoginFragmentToPatientFragment(patient);
+                Navigation.findNavController(view).navigate(action);
             }
         }
     }

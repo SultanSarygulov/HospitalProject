@@ -24,7 +24,11 @@
         android:id="@+id/patientFragment"
         android:name="com.example.hospitalproject.PatientFragment"
         android:label="Пациент"
-        tools:layout="@layout/fragment_patient" />
+        tools:layout="@layout/fragment_patient" >
+        <argument
+            android:name="currentPatient"
+            app:argType="com.example.hospitalproject.room.Patient" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.hospitalproject.home.LoginFragment"
