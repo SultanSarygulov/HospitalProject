@@ -14,7 +14,7 @@ import kotlinx.parcelize.Parcelize;
 @Entity(tableName = "staff_table")
 public class Staff implements Parcelable {
     @PrimaryKey(autoGenerate = true)
-    public int sid;
+    public long sid;
 
     @ColumnInfo(name = "name")
     public String sName;
@@ -35,7 +35,7 @@ public class Staff implements Parcelable {
     public String sPassword;
 
     public Staff(Parcel in) {
-        sid = in.readInt();
+        sid = in.readLong();
         sName = in.readString();
         sSurname = in.readString();
         sPosition = in.readString();
@@ -67,7 +67,7 @@ public class Staff implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(sid);
+        parcel.writeLong(sid);
         parcel.writeString(sName);
         parcel.writeString(sSurname);
         parcel.writeString(sPosition);

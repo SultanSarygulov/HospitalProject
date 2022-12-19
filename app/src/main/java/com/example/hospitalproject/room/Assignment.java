@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class Assignment {
 
     @PrimaryKey(autoGenerate = true)
-    public int aid;
+    public long aid;
 
     @ColumnInfo(name = "nurse_id")
     public int nurseId;

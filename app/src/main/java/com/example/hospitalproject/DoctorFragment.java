@@ -91,12 +91,12 @@ public class DoctorFragment extends Fragment implements DoctorListener {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void addDiagnosisToPatient(int id) {
+    public void addDiagnosisToPatient(long id) {
         initDialog(id);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void initDialog(int id) {
+    private void initDialog(long id) {
 
         dialog.setContentView(R.layout.add_diagnosis_dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -106,27 +106,23 @@ public class DoctorFragment extends Fragment implements DoctorListener {
         EditText enterIllnessEt = dialog.findViewById(R.id.enterIllnessEt);
         Button confirmAddingButton = dialog.findViewById(R.id.confirmAddingButton);
 
-        confirmAddingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Nigger", "Button clicked");
-                Diagnosis newDiagnosis = new Diagnosis();
+        confirmAddingButton.setOnClickListener(view ->{
+            Log.d("Nigger", "Button clicked");
+            Diagnosis newDiagnosis = new Diagnosis();
 
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDateTime now = LocalDateTime.now();
 
-                newDiagnosis.patientId = id;
-                newDiagnosis.illness = enterIllnessEt.getText().toString().trim();
-                newDiagnosis.assignmentDate = dtf.format(now);
+            newDiagnosis.patientId = id;
+            newDiagnosis.illness = enterIllnessEt.getText().toString().trim();
+            newDiagnosis.assignmentDate = dtf.format(now);
 
-                db.diagnosisDao().addDiagnosis(newDiagnosis);
+            db.diagnosisDao().addDiagnosis(newDiagnosis);
 
-                Toast.makeText(requireContext(), "Diagnosis added", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), "Diagnosis added", Toast.LENGTH_LONG).show();
 
-                dialog.dismiss();
-            }
+            dialog.dismiss();
         });
-
 
         dialog.show();
     }

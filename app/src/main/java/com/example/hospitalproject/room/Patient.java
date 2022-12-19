@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity(tableName = "patient_table")
 public class Patient implements Parcelable {
     @PrimaryKey(autoGenerate = true)
-    public int pid;
+    public long pid;
 
     @ColumnInfo(name = "name")
     public String pName;
@@ -28,7 +28,7 @@ public class Patient implements Parcelable {
     }
 
     protected Patient(Parcel in) {
-        pid = in.readInt();
+        pid = in.readLong();
         pName = in.readString();
         pSurname = in.readString();
         pPassword = in.readString();
@@ -53,7 +53,7 @@ public class Patient implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(pid);
+        parcel.writeLong(pid);
         parcel.writeString(pName);
         parcel.writeString(pSurname);
         parcel.writeString(pPassword);

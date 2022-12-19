@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hospitalproject.R;
+import com.example.hospitalproject.room.Patient;
 import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 
@@ -60,6 +61,8 @@ public class LoginFragment extends Fragment {
 
                     checkForStaff();
 
+                    checkForPatent();
+
                     if (name.equals("Sultan Sarygulov") && password.equals("1")){
                         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_patientFragment);
                     } else if (name.equals("Main") && password.equals("1")){
@@ -83,6 +86,21 @@ public class LoginFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void checkForPatent() {
+
+        List<Patient> patientList = db.patientDao().getPatients();
+
+        String nameInput = nameEt.getText().toString().trim();
+        String passwordInput = passwordEt.getText().toString().trim();
+
+        for (Patient patient:patientList){
+            if ((patient.pName + " " + patient.pSurname).equals(nameInput) &&
+                    (patient.pPassword).equals(passwordInput)){
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_patientFragment);
+            }
+        }
     }
 
     private void checkForStaff() {

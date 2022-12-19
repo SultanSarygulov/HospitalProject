@@ -6,5 +6,5 @@ public interface DoctorListener {
 
     void deletePatient(Patient patient);
 
-    void addDiagnosisToPatient(int id);
+    void addDiagnosisToPatient(long id);
 }

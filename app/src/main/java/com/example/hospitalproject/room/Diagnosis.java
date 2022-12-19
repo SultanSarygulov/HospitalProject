@@ -2,19 +2,25 @@ package com.example.hospitalproject.room;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "diagnosis_table")
+@Entity(tableName = "diagnosis_table", foreignKeys = {@ForeignKey
+        (entity = Patient.class,
+                parentColumns = "pid",
+                childColumns = "patient_id",
+                onDelete = ForeignKey.CASCADE
+        )})
 public class Diagnosis  {
     @PrimaryKey(autoGenerate = true)
-    public int did;
+    public long did;
 
     @ColumnInfo(name = "illness")
     public String illness;
 
-    @ColumnInfo(name = "patient_id")
-    public int patientId;
+    @ColumnInfo(name = "patient_id", index = true)
+    public long patientId;
 
     @ColumnInfo(name = "assignment_date")
     public String assignmentDate;
