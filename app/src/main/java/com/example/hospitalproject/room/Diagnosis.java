@@ -4,13 +4,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+
 @Entity(tableName = "diagnosis_table")
 public class Diagnosis  {
     @PrimaryKey(autoGenerate = true)
     public int did;
 
-    @ColumnInfo(name = "illness_id")
-    public int illnessId;
+    @ColumnInfo(name = "illness")
+    public String illness;
 
     @ColumnInfo(name = "patient_id")
     public int patientId;
@@ -20,5 +21,6 @@ public class Diagnosis  {
 
     @ColumnInfo(name = "treatment_date")
     public String treatmentDate;
+
 
 }

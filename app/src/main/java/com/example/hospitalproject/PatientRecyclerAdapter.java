@@ -70,7 +70,7 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
             });
 
             addDiagnosisButton.setOnClickListener(view -> {
-                listener.addDiagnosisToPatient();
+                listener.addDiagnosisToPatient(patient.pid);
             });
 
         }

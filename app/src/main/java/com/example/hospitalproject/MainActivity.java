@@ -8,7 +8,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import com.example.hospitalproject.room.Patient;
+import com.example.hospitalproject.room.database.HospitalDatabase;
+
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +23,12 @@ public class MainActivity extends AppCompatActivity {
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController);
+
+        HospitalDatabase db = HospitalDatabase.getDatabase(navHostFragment.requireContext());
+        Patient p = new Patient();
+        p.pName = "Jack";
+        p.pSurname = "Forrow";
+        db.patientDao().addPatient(p);
     }
 
     @Override

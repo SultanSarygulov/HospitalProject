@@ -10,19 +10,16 @@ import com.example.hospitalproject.room.Assignment;
 import com.example.hospitalproject.room.AssignmentDao;
 import com.example.hospitalproject.room.Diagnosis;
 import com.example.hospitalproject.room.DiagnosisDao;
-import com.example.hospitalproject.room.Illness;
-import com.example.hospitalproject.room.IllnessDao;
 import com.example.hospitalproject.room.Patient;
 import com.example.hospitalproject.room.PatientDao;
 import com.example.hospitalproject.room.Staff;
 import com.example.hospitalproject.room.StaffDao;
 
-@Database(entities = {Staff.class, Patient.class, Illness.class, Diagnosis.class, Assignment.class}, version = 4)
+@Database(entities = {Staff.class, Patient.class, Diagnosis.class, Assignment.class}, version = 5)
 public abstract class HospitalDatabase extends RoomDatabase {
 
     public abstract StaffDao staffDao();
     public abstract PatientDao patientDao();
-    public abstract IllnessDao illnessDao();
     public abstract DiagnosisDao diagnosisDao();
     public abstract AssignmentDao assignmentDao();
 
