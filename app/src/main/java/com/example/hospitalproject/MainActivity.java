@@ -23,12 +23,6 @@ public class MainActivity extends AppCompatActivity {
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController);
-
-        HospitalDatabase db = HospitalDatabase.getDatabase(navHostFragment.requireContext());
-        Patient p = new Patient();
-        p.pName = "Jack";
-        p.pSurname = "Forrow";
-        db.patientDao().addPatient(p);
     }
 
     @Override

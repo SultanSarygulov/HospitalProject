@@ -77,7 +77,7 @@ public class AddStaffFragment extends Fragment {
                 LocalDateTime now = LocalDateTime.now();
                 newStaff.sEmploymentDate = dtf.format(now);
 
-                Toast.makeText(requireContext(), "New " + newStaff.sPosition.toLowerCase(Locale.ROOT) + " added", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "New " + newStaff.sPosition.toLowerCase(Locale.ROOT) + " added", Toast.LENGTH_SHORT).show();
                 db.staffDao().addStaff(newStaff);
                 Navigation.findNavController(view).navigateUp();
             }

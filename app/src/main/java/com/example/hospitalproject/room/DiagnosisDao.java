@@ -12,6 +12,6 @@ public interface DiagnosisDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addDiagnosis(Diagnosis diagnosis);
 
-    @Query("SELECT * FROM diagnosis_table")
-    List<Diagnosis> getDiagnosis();
+    @Query("SELECT * FROM diagnosis_table WHERE patient_id = :id")
+    List<Diagnosis> getDiagnosis(long id);
 }

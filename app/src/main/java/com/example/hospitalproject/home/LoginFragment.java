@@ -63,17 +63,15 @@ public class LoginFragment extends Fragment {
 
                     checkForPatient();
 
-                    if (name.equals("Sultan Sarygulov") && password.equals("1")){
-                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_patientFragment);
-                    } else if (name.equals("Main") && password.equals("1")){
+                    if (name.equals("Main") && password.equals("1")){
                         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_mainDoctorFragment);
                     } else {
 
-                        Toast.makeText(requireContext(), "There is no such account!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), "There is no such account!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
 
-                    Toast.makeText(requireContext(), "Fill all fields!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Fill all fields!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -102,6 +100,7 @@ public class LoginFragment extends Fragment {
 
                 NavDirections action = LoginFragmentDirections.actionLoginFragmentToPatientFragment(patient);
                 Navigation.findNavController(view).navigate(action);
+                break;
             }
         }
     }
@@ -126,6 +125,7 @@ public class LoginFragment extends Fragment {
                     action = LoginFragmentDirections.actionLoginFragmentToNurseFragment(staff);
                 }
                 Navigation.findNavController(view).navigate(action);
+                break;
             }
         }
     };

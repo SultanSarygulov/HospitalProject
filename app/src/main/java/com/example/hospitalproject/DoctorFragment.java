@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -86,7 +87,8 @@ public class DoctorFragment extends Fragment implements DoctorListener {
     @Override
     public void deletePatient(Patient patient) {
         db.patientDao().deletePatient(patient);
-        Toast.makeText(requireContext(), "Patient deleted", Toast.LENGTH_LONG).show();
+        Navigation.findNavController(view).navigate(R.id.action_doctorFragment_to_deleteLoadingFragment);
+        Toast.makeText(view.getContext(), "Patient was deleted", Toast.LENGTH_SHORT).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -119,7 +121,7 @@ public class DoctorFragment extends Fragment implements DoctorListener {
 
             db.diagnosisDao().addDiagnosis(newDiagnosis);
 
-            Toast.makeText(requireContext(), "Diagnosis added", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), "Diagnosis added", Toast.LENGTH_SHORT).show();
 
             dialog.dismiss();
         });

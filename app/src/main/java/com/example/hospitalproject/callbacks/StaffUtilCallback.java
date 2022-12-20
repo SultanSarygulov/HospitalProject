@@ -30,11 +30,11 @@ public class StaffUtilCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return mOldList.get(oldItemPosition).sid == mNewList.get(oldItemPosition).sid;
+        return mOldList.get(oldItemPosition).sid == mNewList.get(newItemPosition).sid;
     }
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        return mOldList.get(oldItemPosition) == mNewList.get(oldItemPosition);
+        return mOldList.get(oldItemPosition) == mNewList.get(newItemPosition);
     }
 }

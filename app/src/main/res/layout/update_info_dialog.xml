@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+
+    <ImageView
+        android:id="@+id/updateImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_person"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/update_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/open_sans_bold"
+        android:inputType="textPersonName"
+        android:text="Султан"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/updateImageView"
+        app:layout_constraintTop_toTopOf="@+id/updateImageView" />
+
+    <EditText
+        android:id="@+id/update_surname_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/open_sans_bold"
+        android:inputType="textPersonName"
+        android:text="Сарыгулов"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/updateImageView"
+        app:layout_constraintTop_toBottomOf="@+id/update_name_txt" />
+
+    <EditText
+        android:id="@+id/update_birth_date_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/open_sans"
+        android:hint="XX/XX/XXXX"
+        android:ems="10"
+        android:inputType="text"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/updateImageView"
+        app:layout_constraintTop_toBottomOf="@+id/update_surname_txt" />
+
+    <TextView
+        android:id="@+id/update_height_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/open_sans"
+        android:text="Рост: - "
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/updateImageView"
+        app:layout_constraintTop_toBottomOf="@+id/update_birth_date_et" />
+
+    <TextView
+        android:id="@+id/update_weight_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/open_sans"
+        android:text="Вес: - "
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/updateImageView"
+        app:layout_constraintTop_toBottomOf="@+id/update_height_txt" />
+
+    <TextView
+        android:id="@+id/update_blood_group_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/open_sans"
+        android:text="Группа крови: -"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/updateImageView"
+        app:layout_constraintTop_toBottomOf="@+id/update_weight_txt" />
+
+    <Button
+        android:id="@+id/updatePatientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/update_height_et"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/update_height_txt"
+        app:layout_constraintStart_toEndOf="@+id/update_height_txt"
+        app:layout_constraintTop_toTopOf="@+id/update_height_txt" />
+
+    <EditText
+        android:id="@+id/update_weight_et"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/update_weight_txt"
+        app:layout_constraintStart_toEndOf="@+id/update_weight_txt"
+        app:layout_constraintTop_toTopOf="@+id/update_weight_txt" />
+
+    <EditText
+        android:id="@+id/update_blood_group_et"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/update_blood_group_txt"
+        app:layout_constraintStart_toEndOf="@+id/update_blood_group_txt"
+        app:layout_constraintTop_toTopOf="@+id/update_blood_group_txt" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

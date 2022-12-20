@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,22 +49,24 @@ public class PatientFragment extends Fragment {
 
         db = HospitalDatabase.getDatabase(requireContext());
 
-        RecyclerView diagnosisRecyclerView = view.findViewById(R.id.diagnosis_list);
-        DiagnosisRecyclerAdapter diagnosisAdapter = new DiagnosisRecyclerAdapter(requireContext());
-        diagnosisAdapter.setList(getDiagnosisList());
-        diagnosisRecyclerView.setAdapter(diagnosisAdapter);
-
         return view;
-    }
-
-    private List<Diagnosis> getDiagnosisList() {
-        List<Diagnosis> diagnosisList = db.diagnosisDao().getDiagnosis();
-
-        return diagnosisList;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView diagnosisRecyclerView = view.findViewById(R.id.diagnosis_list);
+        DiagnosisAdapter diagnosisAdapter = new DiagnosisAdapter(requireContext());
+        diagnosisRecyclerView.setAdapter(diagnosisAdapter);
+        diagnosisAdapter.setList(getDiagnosisList());
+    }
+
+    private List<Diagnosis> getDiagnosisList() {
+        List<Diagnosis> diagnosisList = db.diagnosisDao().getDiagnosis(currentPatient.pid);
+
+        Log.d("Nigger", "Diagnosis " + diagnosisList.size());
+
+        return diagnosisList;
     }
 }

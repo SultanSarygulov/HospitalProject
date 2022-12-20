@@ -2,13 +2,25 @@ package com.example.hospitalproject;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-public class NurseFragment extends Fragment {
+import com.example.hospitalproject.listeners.DoctorListener;
+import com.example.hospitalproject.room.Patient;
+import com.example.hospitalproject.room.database.HospitalDatabase;
+
+import java.util.List;
+
+public class NurseFragment extends Fragment implements DoctorListener {
+
+    HospitalDatabase db;
 
     public NurseFragment() {
         // Required empty public constructor
@@ -18,6 +30,31 @@ public class NurseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nurse, container, false);
+        View view = inflater.inflate(R.layout.fragment_nurse, container, false);
+
+        db = HospitalDatabase.getDatabase(requireContext());
+
+        RecyclerView patientRecyclerView = view.findViewById(R.id.patient_list_nurse);
+        PatientRecyclerAdapter adapter = new PatientRecyclerAdapter(requireContext(), this);
+        patientRecyclerView.setAdapter(adapter);
+        adapter.setList(getPatientsList());
+
+        return view;
+    }
+
+
+    private List<Patient> getPatientsList() {
+        List<Patient> patientsList = db.patientDao().getPatients();
+        return patientsList;
+    }
+
+    @Override
+    public void deletePatient(Patient patient) {
+        Toast.makeText(requireContext(), "You have no rights to do that!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void addDiagnosisToPatient(long id) {
+        Toast.makeText(requireContext(), "You have no rights to do that!", Toast.LENGTH_SHORT).show();
     }
 }

@@ -64,8 +64,6 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
                 @Override
                 public void onClick(View view) {
                     listener.deletePatient(patient);
-                    Navigation.findNavController(view).navigate(R.id.action_doctorFragment_to_deleteLoadingFragment);
-                    Toast.makeText(view.getContext(), "Patient was deleted", Toast.LENGTH_LONG).show();
                 }
             });
 

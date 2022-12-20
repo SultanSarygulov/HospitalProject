@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public interface PatientDao {
 
     @Delete
     void deletePatient(Patient patient);
+
+    @Update
+    void updatePatientInfo(Patient patient);
 
     @Query("SELECT COUNT(*) FROM patient_table")
     String getPatientNum();

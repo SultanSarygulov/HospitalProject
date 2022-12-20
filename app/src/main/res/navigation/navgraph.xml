@@ -78,13 +78,11 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.hospitalproject.home.RegisterFragment"
-        android:label="fragment_register"
+        android:label="Регистрация"
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/loginFragment"/>
     </fragment>
     <fragment
         android:id="@+id/addStaffFragment"

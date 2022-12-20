@@ -2,17 +2,17 @@ package com.example.hospitalproject.callbacks;
 
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.example.hospitalproject.room.Diagnosis;
 import com.example.hospitalproject.room.Patient;
 
 import java.util.List;
 
+public class DiagnosisUtilCallback extends DiffUtil.Callback {
 
-public class PatientUtilCallback extends DiffUtil.Callback {
+    private final List<Diagnosis> mOldList;
+    private final List<Diagnosis> mNewList;
 
-    private final List<Patient> mOldList;
-    private final List<Patient> mNewList;
-
-    public PatientUtilCallback(List<Patient> oldList, List<Patient> newList){
+    public DiagnosisUtilCallback(List<Diagnosis> oldList, List<Diagnosis> newList){
         this.mOldList = oldList;
         this.mNewList = newList;
     }
@@ -29,7 +29,7 @@ public class PatientUtilCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return mOldList.get(oldItemPosition).pid == mNewList.get(newItemPosition).pid;
+        return mOldList.get(oldItemPosition).did == mNewList.get(newItemPosition).did;
     }
 
     @Override
@@ -37,4 +37,3 @@ public class PatientUtilCallback extends DiffUtil.Callback {
         return mOldList.get(oldItemPosition) == mNewList.get(newItemPosition);
     }
 }
-

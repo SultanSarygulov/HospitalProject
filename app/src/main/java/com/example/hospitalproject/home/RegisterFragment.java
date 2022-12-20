@@ -5,19 +5,25 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hospitalproject.R;
 import com.example.hospitalproject.room.Patient;
+import com.example.hospitalproject.room.Staff;
 import com.example.hospitalproject.room.database.HospitalDatabase;
+
+import java.util.List;
 
 public class RegisterFragment extends Fragment {
 
@@ -27,6 +33,8 @@ public class RegisterFragment extends Fragment {
     EditText registerPasswordEt;
     HospitalDatabase db;
     View view;
+    String fullname;
+    String password;
 
     public RegisterFragment() {
     }
@@ -58,22 +66,30 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        registerButton.setOnClickListener(clickView ->{
 
-                String fullname = registerNameEt.getText().toString().trim();
-                String password = registerPasswordEt.getText().toString().trim();
+            fullname = registerNameEt.getText().toString().trim();
+            password = registerPasswordEt.getText().toString().trim();
 
-                if (!TextUtils.isEmpty(fullname) && !TextUtils.isEmpty(password)){
-                    Patient newPatient = new Patient();
-                    newPatient.pName = fullname.split(" ")[0];
-                    newPatient.pSurname = fullname.split(" ")[1];
-                    newPatient.pPassword = password;
+            if (!TextUtils.isEmpty(fullname) && !TextUtils.isEmpty(password)){
 
-                    db.patientDao().addPatient(newPatient);
-                }
+                addUserPatient();
+            } else {
+
+                Toast.makeText(requireContext(), "Fill all the fields!", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private void addUserPatient() {
+
+            Patient newPatient = new Patient();
+            newPatient.pName = fullname.split(" ")[0];
+            newPatient.pSurname = fullname.split(" ")[1];
+            newPatient.pPassword = password;
+
+            db.patientDao().addPatient(newPatient);
+            Toast.makeText(requireContext(), "You are successfully registered!", Toast.LENGTH_SHORT).show();
+
+        }
 }
