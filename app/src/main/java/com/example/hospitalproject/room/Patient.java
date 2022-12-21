@@ -23,6 +23,14 @@ public class Patient implements Parcelable {
     @ColumnInfo(name = "password")
     public String pPassword;
 
+    public String birthDate;
+
+    public int height;
+
+    public int weight;
+
+    public String bloodType;
+
     public Patient(){
 
     }
@@ -32,6 +40,10 @@ public class Patient implements Parcelable {
         pName = in.readString();
         pSurname = in.readString();
         pPassword = in.readString();
+        birthDate = in.readString();
+        height = in.readInt();
+        weight = in.readInt();
+        bloodType = in.readString();
     }
 
     public static final Creator<Patient> CREATOR = new Creator<Patient>() {
@@ -57,5 +69,9 @@ public class Patient implements Parcelable {
         parcel.writeString(pName);
         parcel.writeString(pSurname);
         parcel.writeString(pPassword);
+        parcel.writeString(birthDate);
+        parcel.writeInt(height);
+        parcel.writeInt(weight);
+        parcel.writeString(bloodType);
     }
 }

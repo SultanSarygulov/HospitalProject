@@ -15,7 +15,7 @@ import com.example.hospitalproject.room.PatientDao;
 import com.example.hospitalproject.room.Staff;
 import com.example.hospitalproject.room.StaffDao;
 
-@Database(entities = {Staff.class, Patient.class, Diagnosis.class, Assignment.class}, version = 1)
+@Database(entities = {Staff.class, Patient.class, Diagnosis.class, Assignment.class}, version = 3)
 public abstract class HospitalDatabase extends RoomDatabase {
 
     public abstract StaffDao staffDao();

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="350dp">
 
     <ImageView
         android:id="@+id/updateImageView"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/update_name_txt"
+        android:id="@+id/update_name_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -24,14 +24,13 @@
         android:ems="10"
         android:fontFamily="@font/open_sans_bold"
         android:inputType="textPersonName"
-        android:text="Султан"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/updateImageView"
         app:layout_constraintTop_toTopOf="@+id/updateImageView" />
 
     <EditText
-        android:id="@+id/update_surname_txt"
+        android:id="@+id/update_surname_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,11 +38,10 @@
         android:ems="10"
         android:fontFamily="@font/open_sans_bold"
         android:inputType="textPersonName"
-        android:text="Сарыгулов"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/updateImageView"
-        app:layout_constraintTop_toBottomOf="@+id/update_name_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/update_name_et" />
 
     <EditText
         android:id="@+id/update_birth_date_et"
@@ -51,13 +49,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/open_sans"
-        android:hint="XX/XX/XXXX"
         android:ems="10"
+        android:fontFamily="@font/open_sans"
+        android:hint="YYYY/MM/DD"
         android:inputType="text"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/updateImageView"
-        app:layout_constraintTop_toBottomOf="@+id/update_surname_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/update_surname_et" />
 
     <TextView
         android:id="@+id/update_height_txt"
@@ -66,7 +64,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/open_sans"
-        android:text="Рост: - "
+        android:text="Рост: "
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/updateImageView"
         app:layout_constraintTop_toBottomOf="@+id/update_birth_date_et" />
@@ -76,9 +74,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/open_sans"
-        android:text="Вес: - "
+        android:text="Вес: "
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/updateImageView"
         app:layout_constraintTop_toBottomOf="@+id/update_height_txt" />
@@ -88,15 +86,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/open_sans"
-        android:text="Группа крови: -"
+        android:text="Группа крови: "
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/updateImageView"
         app:layout_constraintTop_toBottomOf="@+id/update_weight_txt" />
 
     <Button
-        android:id="@+id/updatePatientButton"
+        android:id="@+id/confirmUpdateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -108,7 +106,7 @@
     <EditText
         android:id="@+id/update_height_et"
         android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/update_height_txt"
@@ -118,7 +116,7 @@
     <EditText
         android:id="@+id/update_weight_et"
         android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/update_weight_txt"
@@ -128,9 +126,9 @@
     <EditText
         android:id="@+id/update_blood_group_et"
         android:layout_width="50dp"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@+id/update_blood_group_txt"
         app:layout_constraintStart_toEndOf="@+id/update_blood_group_txt"
         app:layout_constraintTop_toTopOf="@+id/update_blood_group_txt" />

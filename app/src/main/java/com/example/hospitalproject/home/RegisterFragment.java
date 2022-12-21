@@ -90,6 +90,7 @@ public class RegisterFragment extends Fragment {
 
             db.patientDao().addPatient(newPatient);
             Toast.makeText(requireContext(), "You are successfully registered!", Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
 
         }
 }
