@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">HospitalProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_txt">Приветствую дорогой, Главный Врач!</string>
+    <string name="nurse_list_txt">Список медсестер:</string>
+    <string name="doctor_list">Список докторов:</string>
+    <string name="most_earning_doctor">Cотрудник с максимальной зарплатой:</string>
+    <string name="least_earning_doctor">Сотрудник с минимальной зарплатой:</string>
+    <string name="patient_number">Количество пациентов:</string>
 </resources>
