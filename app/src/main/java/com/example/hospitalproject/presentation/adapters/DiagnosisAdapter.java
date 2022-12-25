@@ -1,23 +1,18 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.presentation.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hospitalproject.callbacks.DiagnosisUtilCallback;
-import com.example.hospitalproject.callbacks.StaffUtilCallback;
-import com.example.hospitalproject.listeners.Listeners;
+import com.example.hospitalproject.R;
+import com.example.hospitalproject.tools.callbacks.DiagnosisUtilCallback;
 import com.example.hospitalproject.room.Diagnosis;
-import com.example.hospitalproject.room.Staff;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +22,7 @@ public class DiagnosisAdapter extends RecyclerView.Adapter<DiagnosisAdapter.View
     private final LayoutInflater inflater;
     private List<Diagnosis> diagnosisesList;
 
-    DiagnosisAdapter(Context context){
+    public DiagnosisAdapter(Context context){
         this.inflater = LayoutInflater.from(context);
         this.diagnosisesList = new ArrayList<>();
     }

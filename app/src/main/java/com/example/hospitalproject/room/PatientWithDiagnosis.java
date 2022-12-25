@@ -11,8 +11,8 @@ public class PatientWithDiagnosis {
     public Patient patient;
 
     @Relation(
-            parentColumn = "pid",
-            entityColumn = "did"
+            parentColumn = "id",
+            entityColumn = "id"
     )
     public List<Diagnosis> diagnosises;
 

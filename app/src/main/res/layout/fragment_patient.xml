@@ -5,7 +5,7 @@
     android:id="@+id/patient_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PatientFragment">
+    tools:context=".presentation.users.PatientFragment">
 
     <ImageView
         android:id="@+id/imageView"

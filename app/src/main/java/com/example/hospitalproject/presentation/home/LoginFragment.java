@@ -1,4 +1,4 @@
-package com.example.hospitalproject.home;
+package com.example.hospitalproject.presentation.home;
 
 import android.os.Bundle;
 
@@ -7,7 +7,6 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ public class LoginFragment extends Fragment {
     TextView registerTxtButton;
     HospitalDatabase db;
     View view;
+    NavDirections action;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -51,42 +51,49 @@ public class LoginFragment extends Fragment {
         loginButton = view.findViewById(R.id.loginButton);
         registerTxtButton = view.findViewById(R.id.register_txt_btn);
 
-        loginButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        loginButton.setOnClickListener(clickView -> {
 
-                String name = nameEt.getText().toString().trim();
-                String password = passwordEt.getText().toString().trim();
+            String name = nameEt.getText().toString().trim();
+            String password = passwordEt.getText().toString().trim();
 
-                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(password)){
+            if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(password)){
 
-                    checkForStaff();
+//                checkForStaff();
+//
+//                checkForPatient();
 
-                    checkForPatient();
+                if (name.equals("Main") && password.equals("1")){
 
-                    if (name.equals("Main") && password.equals("1")){
-                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_mainDoctorFragment);
-                    } else {
+                    //Navigate to Main Doctor page
+                    Navigation.findNavController(clickView).navigate(R.id.action_loginFragment_to_mainDoctorFragment);
+                } else if (checkForPatient()) {
 
-                        Toast.makeText(requireContext(), "There is no such account!", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
+                    //Navigate tp Patient page
+                    Navigation.findNavController(clickView).navigate(action);
+                } else if (checkForStaff()){
 
-                    Toast.makeText(requireContext(), "Fill all fields!", Toast.LENGTH_SHORT).show();
+                    //Navigate to Doctor or Nurse page
+                    Navigation.findNavController(view).navigate(action);
                 }
+                else {
+
+                    Toast.makeText(requireContext(), "There is no such account!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+
+                Toast.makeText(requireContext(), "Fill all fields!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        registerTxtButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
-            }
+        registerTxtButton.setOnClickListener(clickView -> {
+                Navigation.findNavController(clickView).navigate(R.id.action_loginFragment_to_registerFragment);
         });
 
 
         return view;
     }
 
-    private void checkForPatient() {
+    private boolean checkForPatient() {
 
         List<Patient> patientList = db.patientDao().getPatients();
 
@@ -98,17 +105,18 @@ public class LoginFragment extends Fragment {
             if ((patient.pName + " " + patient.pSurname).equals(nameInput) &&
                     (patient.pPassword).equals(passwordInput)){
 
-                NavDirections action = LoginFragmentDirections.actionLoginFragmentToPatientFragment(patient);
-                Navigation.findNavController(view).navigate(action);
-                break;
+                action = LoginFragmentDirections.actionLoginFragmentToPatientFragment(patient);
+
+                return true;
             }
         }
+        return false;
     }
 
-    private void checkForStaff() {
+    private boolean checkForStaff() {
 
         List<Staff> staffList = db.staffDao().getAll();
-        NavDirections action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment();
+        action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment();
 
 
         String nameInput = nameEt.getText().toString().trim();
@@ -124,10 +132,12 @@ public class LoginFragment extends Fragment {
                 } else if (Objects.equals(staff.sPosition, "Nurse")){
                     action = LoginFragmentDirections.actionLoginFragmentToNurseFragment(staff);
                 }
-                Navigation.findNavController(view).navigate(action);
-                break;
+
+                return true;
             }
         }
+
+        return false;
     };
 
 }

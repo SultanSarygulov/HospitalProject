@@ -8,13 +8,13 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "diagnosis_table", foreignKeys = {@ForeignKey
         (entity = Patient.class,
-                parentColumns = "pid",
+                parentColumns = "id",
                 childColumns = "patient_id",
                 onDelete = ForeignKey.CASCADE
         )})
 public class Diagnosis  {
     @PrimaryKey(autoGenerate = true)
-    public long did;
+    public long id;
 
     @ColumnInfo(name = "illness")
     public String illness;

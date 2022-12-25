@@ -1,4 +1,4 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.presentation.users;
 
 import android.app.Dialog;
 import android.os.Build;
@@ -15,24 +15,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hospitalproject.listeners.DoctorListener;
+import com.example.hospitalproject.presentation.adapters.PatientRecyclerAdapter;
+import com.example.hospitalproject.R;
+import com.example.hospitalproject.tools.listeners.DoctorListener;
 import com.example.hospitalproject.room.Diagnosis;
 import com.example.hospitalproject.room.Patient;
 import com.example.hospitalproject.room.Staff;
 import com.example.hospitalproject.room.database.HospitalDatabase;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorFragment extends Fragment implements DoctorListener {
@@ -61,7 +58,7 @@ public class DoctorFragment extends Fragment implements DoctorListener {
         currentDoctor = args.getCurrentDoctor();
 
         RecyclerView patientRecyclerView = view.findViewById(R.id.patient_list);
-        dialog = new Dialog(requireContext());
+
 
         PatientRecyclerAdapter adapter = new PatientRecyclerAdapter(requireContext(), this);
         patientRecyclerView.setAdapter(adapter);
@@ -74,7 +71,7 @@ public class DoctorFragment extends Fragment implements DoctorListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String fullName = currentDoctor.sName + " " + currentDoctor.sSurname + " " + currentDoctor.sid;
+        String fullName = currentDoctor.sName + " " + currentDoctor.sSurname;
 
         doctorTV.setText(fullName);
     }
@@ -99,6 +96,8 @@ public class DoctorFragment extends Fragment implements DoctorListener {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initDialog(long id) {
+
+        dialog = new Dialog(requireContext());
 
         dialog.setContentView(R.layout.add_diagnosis_dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

@@ -1,4 +1,4 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.presentation.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hospitalproject.callbacks.StaffUtilCallback;
-import com.example.hospitalproject.listeners.Listeners;
+import com.example.hospitalproject.R;
+import com.example.hospitalproject.tools.callbacks.StaffUtilCallback;
+import com.example.hospitalproject.tools.listeners.Listeners;
 import com.example.hospitalproject.room.Staff;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,7 +28,7 @@ public class NurseRecyclerAdapter
     private List<Staff> nurses;
     private final Listeners listener;
 
-    NurseRecyclerAdapter(Context context, Listeners listener){
+    public NurseRecyclerAdapter(Context context, Listeners listener){
         this.inflater = LayoutInflater.from(context);
         this.nurses = new ArrayList<>();
         this.listener = listener;

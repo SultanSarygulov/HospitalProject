@@ -1,9 +1,7 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.presentation.users;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.hospitalproject.listeners.DoctorListener;
+import com.example.hospitalproject.presentation.adapters.PatientRecyclerAdapter;
+import com.example.hospitalproject.R;
+import com.example.hospitalproject.tools.listeners.DoctorListener;
 import com.example.hospitalproject.room.Patient;
 import com.example.hospitalproject.room.database.HospitalDatabase;
 

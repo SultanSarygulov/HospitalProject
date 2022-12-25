@@ -1,4 +1,4 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.presentation.users;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +17,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.hospitalproject.listeners.Listeners;
+import com.example.hospitalproject.R;
+import com.example.hospitalproject.tools.listeners.Listeners;
+import com.example.hospitalproject.presentation.adapters.DoctorRecyclerAdapter;
+import com.example.hospitalproject.presentation.adapters.NurseRecyclerAdapter;
 import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 

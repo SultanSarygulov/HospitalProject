@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainDoctorFragment"
-        android:name="com.example.hospitalproject.MainDoctorFragment"
+        android:name="com.example.hospitalproject.presentation.users.MainDoctorFragment"
         android:label="Главный Доктор"
         tools:layout="@layout/fragment_main_doctor" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/patientFragment"
-        android:name="com.example.hospitalproject.PatientFragment"
+        android:name="com.example.hospitalproject.presentation.users.PatientFragment"
         android:label="Пациент"
         tools:layout="@layout/fragment_patient" >
         <argument
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.hospitalproject.home.LoginFragment"
+        android:name="com.example.hospitalproject.presentation.home.LoginFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_login" >
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/doctorFragment"
-        android:name="com.example.hospitalproject.DoctorFragment"
+        android:name="com.example.hospitalproject.presentation.users.DoctorFragment"
         android:label="Врач"
         tools:layout="@layout/fragment_doctor" >
         <argument
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/nurseFragment"
-        android:name="com.example.hospitalproject.NurseFragment"
+        android:name="com.example.hospitalproject.presentation.users.NurseFragment"
         android:label="Медсестра"
         tools:layout="@layout/fragment_nurse" >
         <argument
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.hospitalproject.home.RegisterFragment"
+        android:name="com.example.hospitalproject.presentation.home.RegisterFragment"
         android:label="Регистрация"
         tools:layout="@layout/fragment_register" >
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/addStaffFragment"
-        android:name="com.example.hospitalproject.AddStaffFragment"
+        android:name="com.example.hospitalproject.presentation.users.AddStaffFragment"
         android:label="Добавить сотрудника"
         tools:layout="@layout/fragment_add_staff">
         <action
@@ -98,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/deleteLoadingFragment"
-        android:name="com.example.hospitalproject.DeleteLoadingFragment"
+        android:name="com.example.hospitalproject.tools.DeleteLoadingFragment"
         android:label="Загрузка"
         tools:layout="@layout/fragment_delete_loading"/>
 </navigation>

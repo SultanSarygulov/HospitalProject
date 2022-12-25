@@ -1,15 +1,13 @@
-package com.example.hospitalproject.home;
+package com.example.hospitalproject.presentation.home;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +18,7 @@ import android.widget.Toast;
 
 import com.example.hospitalproject.R;
 import com.example.hospitalproject.room.Patient;
-import com.example.hospitalproject.room.Staff;
 import com.example.hospitalproject.room.database.HospitalDatabase;
-
-import java.util.List;
 
 public class RegisterFragment extends Fragment {
 

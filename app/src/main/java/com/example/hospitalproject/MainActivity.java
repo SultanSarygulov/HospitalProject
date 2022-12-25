@@ -8,9 +8,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
-import com.example.hospitalproject.room.Patient;
-import com.example.hospitalproject.room.database.HospitalDatabase;
-
 public class MainActivity extends AppCompatActivity {
 
 

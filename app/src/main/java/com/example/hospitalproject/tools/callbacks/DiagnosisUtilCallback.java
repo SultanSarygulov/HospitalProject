@@ -1,9 +1,8 @@
-package com.example.hospitalproject.callbacks;
+package com.example.hospitalproject.tools.callbacks;
 
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.hospitalproject.room.Diagnosis;
-import com.example.hospitalproject.room.Patient;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class DiagnosisUtilCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return mOldList.get(oldItemPosition).did == mNewList.get(newItemPosition).did;
+        return mOldList.get(oldItemPosition).id == mNewList.get(newItemPosition).id;
     }
 
     @Override

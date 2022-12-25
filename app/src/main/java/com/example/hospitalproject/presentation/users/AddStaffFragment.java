@@ -1,4 +1,4 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.presentation.users;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hospitalproject.R;
 import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 
@@ -67,10 +68,10 @@ public class AddStaffFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Staff newStaff = new Staff();
-                newStaff.sName = enterNameEt.getText().toString();
-                newStaff.sSurname = enterSurnameEt.getText().toString();
-                newStaff.sSalary = Integer.parseInt(enterSalaryEt.getText().toString());
-                newStaff.sPassword = enterPasswordEt.getText().toString();
+                newStaff.sName = enterNameEt.getText().toString().trim();
+                newStaff.sSurname = enterSurnameEt.getText().toString().trim();
+                newStaff.sSalary = Integer.parseInt(enterSalaryEt.getText().toString().trim());
+                newStaff.sPassword = enterPasswordEt.getText().toString().trim();
                 newStaff.sPosition = args.getPosition();
 
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");

@@ -1,4 +1,4 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.presentation.users;
 
 import android.app.Dialog;
 import android.os.Build;
@@ -19,12 +19,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.hospitalproject.presentation.adapters.DiagnosisAdapter;
+import com.example.hospitalproject.R;
 import com.example.hospitalproject.room.Diagnosis;
 import com.example.hospitalproject.room.Patient;
 import com.example.hospitalproject.room.database.HospitalDatabase;
 
 import java.util.List;
-import java.util.Objects;
 
 public class PatientFragment extends Fragment {
 
@@ -162,7 +163,7 @@ public class PatientFragment extends Fragment {
     }
 
     private List<Diagnosis> getDiagnosisList() {
-        List<Diagnosis> diagnosisList = db.diagnosisDao().getDiagnosis(currentPatient.pid);
+        List<Diagnosis> diagnosisList = db.diagnosisDao().getDiagnosis(currentPatient.id);
 
         Log.d("Nigger", "Diagnosis " + diagnosisList.size());
 

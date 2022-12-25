@@ -7,14 +7,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
-import kotlinx.parcelize.Parcelize;
-
 @Entity(tableName = "staff_table")
 public class Staff implements Parcelable {
     @PrimaryKey(autoGenerate = true)
-    public long sid;
+    public long id;
 
     @ColumnInfo(name = "name")
     public String sName;
@@ -35,7 +31,7 @@ public class Staff implements Parcelable {
     public String sPassword;
 
     public Staff(Parcel in) {
-        sid = in.readLong();
+        id = in.readLong();
         sName = in.readString();
         sSurname = in.readString();
         sPosition = in.readString();
@@ -67,7 +63,7 @@ public class Staff implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(sid);
+        parcel.writeLong(id);
         parcel.writeString(sName);
         parcel.writeString(sSurname);
         parcel.writeString(sPosition);

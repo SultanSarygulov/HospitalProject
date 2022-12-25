@@ -1,19 +1,18 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.presentation.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hospitalproject.callbacks.PatientUtilCallback;
-import com.example.hospitalproject.listeners.DoctorListener;
+import com.example.hospitalproject.R;
+import com.example.hospitalproject.tools.callbacks.PatientUtilCallback;
+import com.example.hospitalproject.tools.listeners.DoctorListener;
 import com.example.hospitalproject.room.Patient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -26,7 +25,7 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
     private List<Patient> patients;
     private final DoctorListener listener;
 
-    PatientRecyclerAdapter(Context context, DoctorListener listener){
+    public PatientRecyclerAdapter(Context context, DoctorListener listener){
         this.inflater = LayoutInflater.from(context);
         this.patients = new ArrayList<>();
         this.listener = listener;
@@ -68,7 +67,7 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
             });
 
             addDiagnosisButton.setOnClickListener(view -> {
-                listener.addDiagnosisToPatient(patient.pid);
+                listener.addDiagnosisToPatient(patient.id);
             });
 
         }

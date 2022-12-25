@@ -1,4 +1,4 @@
-package com.example.hospitalproject;
+package com.example.hospitalproject.tools;
 
 import android.os.Bundle;
 
@@ -10,6 +10,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.hospitalproject.R;
 
 public class DeleteLoadingFragment extends Fragment {
 
