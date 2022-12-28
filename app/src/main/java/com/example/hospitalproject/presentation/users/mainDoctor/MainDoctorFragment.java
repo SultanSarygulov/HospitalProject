@@ -1,4 +1,4 @@
-package com.example.hospitalproject.presentation.users;
+package com.example.hospitalproject.presentation.users.mainDoctor;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +51,8 @@ public class MainDoctorFragment extends Fragment implements Listeners {
     DoctorRecyclerAdapter doctorAdapter;
     NurseRecyclerAdapter nurseAdapter;
 
+    MainDoctorViewModel mainDoctorViewModel;
+
     public MainDoctorFragment() {
         // Required empty public constructor
     }
@@ -70,23 +74,43 @@ public class MainDoctorFragment extends Fragment implements Listeners {
 
         patientNumTV = view.findViewById(R.id.patient_num);
 
-        RecyclerView nurseRecyclerView = view.findViewById(R.id.nurse_list);
-        nurseAdapter = new NurseRecyclerAdapter(requireContext(), this);
-        getNursesList();
-        nurseRecyclerView.setAdapter(nurseAdapter);
-
-        RecyclerView doctorRecycler = view.findViewById(R.id.doctor_list);
-        doctorAdapter = new DoctorRecyclerAdapter(requireContext(), this);
-        getDoctorsList();
-        doctorRecycler.setAdapter(doctorAdapter);
-
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Set ViewModel
+        mainDoctorViewModel = ViewModelProviders.of(this).get(MainDoctorViewModel.class);
+
+        // Set RecyclerViews for Doctors and Nurses
+        RecyclerView doctorRecycler = view.findViewById(R.id.doctor_list);
+        doctorAdapter = new DoctorRecyclerAdapter(requireContext(), this);
+        doctorRecycler.setAdapter(doctorAdapter);
+
+        RecyclerView nurseRecyclerView = view.findViewById(R.id.nurse_list);
+        nurseAdapter = new NurseRecyclerAdapter(requireContext(), this);
+        nurseRecyclerView.setAdapter(nurseAdapter);
+
+        // Set LiveData observer for Doctor RecyclerView
+        mainDoctorViewModel.readDoctors.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
+
+            @Override
+            public void onChanged(List<Staff> staffList) {
+                doctorAdapter.setList(staffList);
+            }
+        });
+
+        // Set LiveData observer for Nurse RecyclerView
+        mainDoctorViewModel.readNurses.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
+
+            @Override
+            public void onChanged(List<Staff> staffList) {
+                nurseAdapter.setList(staffList);
+            }
+        });
+
 
         addNurse.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -111,28 +135,6 @@ public class MainDoctorFragment extends Fragment implements Listeners {
         getNumberOfPatients();
     }
 
-    private void getNursesList() {
-        LiveData<List<Staff>> nursesList = db.staffDao().getNurses();
-        nursesList.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
-
-            @Override
-            public void onChanged(List<Staff> staff) {
-                nurseAdapter.setList(nursesList.getValue());
-            }
-        });
-    }
-
-    private void getDoctorsList() {
-        LiveData<List<Staff>> doctorsList = db.staffDao().getDoctors();
-        doctorsList.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
-
-            @Override
-            public void onChanged(List<Staff> staff) {
-                doctorAdapter.setList(doctorsList.getValue());
-            }
-        });
-    }
-
     @Override
     public void deleteStaff(Staff staff) {
 
@@ -149,9 +151,8 @@ public class MainDoctorFragment extends Fragment implements Listeners {
     }
 
     private void nameMostPayed(){
-        LiveData<Staff> mostPaidPerson = db.staffDao().getMostPaid();
 
-        mostPaidPerson.observe(getViewLifecycleOwner(), new Observer<Staff>(){
+        mainDoctorViewModel.readMostPaid.observe(getViewLifecycleOwner(), new Observer<Staff>(){
 
             @Override
             public void onChanged(Staff staff) {
@@ -169,9 +170,8 @@ public class MainDoctorFragment extends Fragment implements Listeners {
     }
 
     private void nameLeastPayed(){
-        LiveData<Staff> leastPaidPerson = db.staffDao().getLeastPaid();
 
-        leastPaidPerson.observe(getViewLifecycleOwner(), new Observer<Staff>(){
+        mainDoctorViewModel.readLeastPaid.observe(getViewLifecycleOwner(), new Observer<Staff>(){
 
             @Override
             public void onChanged(Staff staff) {

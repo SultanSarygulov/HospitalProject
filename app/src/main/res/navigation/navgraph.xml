@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainDoctorFragment"
-        android:name="com.example.hospitalproject.presentation.users.MainDoctorFragment"
+        android:name="com.example.hospitalproject.presentation.users.mainDoctor.MainDoctorFragment"
         android:label="Главный Доктор"
         tools:layout="@layout/fragment_main_doctor" >
         <action
@@ -16,9 +16,6 @@
         <argument
             android:name="newStaff"
             app:argType="com.example.hospitalproject.room.Staff" />
-        <action
-            android:id="@+id/action_mainDoctorFragment_to_deleteLoadingFragment"
-            app:destination="@id/deleteLoadingFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientFragment"
