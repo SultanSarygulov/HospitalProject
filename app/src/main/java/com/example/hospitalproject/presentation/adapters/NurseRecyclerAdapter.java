@@ -65,13 +65,8 @@ public class NurseRecyclerAdapter
             surname.setText(nurse.sSurname);
             employmentDate.setText(nurse.sEmploymentDate);
 
-            deleteDoctorButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.deleteStaff(nurse);
-                    Navigation.findNavController(view).navigate(R.id.action_mainDoctorFragment_to_deleteLoadingFragment);
-                    Toast.makeText(view.getContext(), nurse.sPosition + " was deleted", Toast.LENGTH_SHORT).show();
-                }
+            deleteDoctorButton.setOnClickListener(view -> {
+                listener.deleteStaff(nurse);
             });
         }
     }

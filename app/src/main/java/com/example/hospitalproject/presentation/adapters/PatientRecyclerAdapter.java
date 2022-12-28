@@ -59,11 +59,8 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
 
             name.setText(patient.pName);
             surname.setText(patient.pSurname);
-            deletePatientButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.deletePatient(patient);
-                }
+            deletePatientButton.setOnClickListener(view -> {
+                listener.deletePatient(patient);
             });
 
             addDiagnosisButton.setOnClickListener(view -> {

@@ -7,15 +7,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hospitalproject.R;
 import com.example.hospitalproject.tools.listeners.Listeners;
@@ -25,6 +29,11 @@ import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Observable;
+import java.util.function.Consumer;
+
+import androidx.lifecycle.Observer;
 
 public class MainDoctorFragment extends Fragment implements Listeners {
 
@@ -34,6 +43,11 @@ public class MainDoctorFragment extends Fragment implements Listeners {
     TextView mostPayedStaff;
     TextView leastPayedStaff;
     TextView patientNumTV;
+    String mostPaidPersonTxt;
+    String leastPaidPersonTxt;
+
+    DoctorRecyclerAdapter doctorAdapter;
+    NurseRecyclerAdapter nurseAdapter;
 
     public MainDoctorFragment() {
         // Required empty public constructor
@@ -57,13 +71,13 @@ public class MainDoctorFragment extends Fragment implements Listeners {
         patientNumTV = view.findViewById(R.id.patient_num);
 
         RecyclerView nurseRecyclerView = view.findViewById(R.id.nurse_list);
-        NurseRecyclerAdapter nurseAdapter = new NurseRecyclerAdapter(requireContext(), this);
-        nurseAdapter.setList(getNursesList());
+        nurseAdapter = new NurseRecyclerAdapter(requireContext(), this);
+        getNursesList();
         nurseRecyclerView.setAdapter(nurseAdapter);
 
         RecyclerView doctorRecycler = view.findViewById(R.id.doctor_list);
-        DoctorRecyclerAdapter doctorAdapter = new DoctorRecyclerAdapter(requireContext(), this);
-        doctorAdapter.setList(getDoctorsList());
+        doctorAdapter = new DoctorRecyclerAdapter(requireContext(), this);
+        getDoctorsList();
         doctorRecycler.setAdapter(doctorAdapter);
 
 
@@ -97,21 +111,33 @@ public class MainDoctorFragment extends Fragment implements Listeners {
         getNumberOfPatients();
     }
 
-    private List<Staff> getNursesList() {
-        List<Staff> nursesList = db.staffDao().getNurses();
+    private void getNursesList() {
+        LiveData<List<Staff>> nursesList = db.staffDao().getNurses();
+        nursesList.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
 
-        return nursesList;
+            @Override
+            public void onChanged(List<Staff> staff) {
+                nurseAdapter.setList(nursesList.getValue());
+            }
+        });
     }
 
-    private List<Staff> getDoctorsList() {
-        List<Staff> doctorsList = db.staffDao().getDoctors();
+    private void getDoctorsList() {
+        LiveData<List<Staff>> doctorsList = db.staffDao().getDoctors();
+        doctorsList.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
 
-        return doctorsList;
+            @Override
+            public void onChanged(List<Staff> staff) {
+                doctorAdapter.setList(doctorsList.getValue());
+            }
+        });
     }
 
     @Override
     public void deleteStaff(Staff staff) {
+
         db.staffDao().deleteStaff(staff);
+        Toast.makeText(requireContext(), staff.sPosition + " was deleted", Toast.LENGTH_SHORT).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -123,33 +149,44 @@ public class MainDoctorFragment extends Fragment implements Listeners {
     }
 
     private void nameMostPayed(){
-        Staff mostPaidPerson = db.staffDao().getMostPaid();
-        String mostPaidPersonTxt = "The list is empty(";
+        LiveData<Staff> mostPaidPerson = db.staffDao().getMostPaid();
 
-        if (mostPaidPerson != null){
+        mostPaidPerson.observe(getViewLifecycleOwner(), new Observer<Staff>(){
 
-            mostPaidPersonTxt = mostPaidPerson.sPosition + " " +
-                    mostPaidPerson.sName + " " +
-                    mostPaidPerson.sSurname + " - $" +
-                    mostPaidPerson.sSalary;
-        }
-
-        mostPayedStaff.setText(mostPaidPersonTxt);
+            @Override
+            public void onChanged(Staff staff) {
+                if (staff != null){
+                    mostPaidPersonTxt = staff.sPosition + " " +
+                            staff.sName + " " +
+                            staff.sSurname + " - $" +
+                            staff.sSalary;
+                } else {
+                    mostPaidPersonTxt = "The list is empty(";
+                }
+                mostPayedStaff.setText(mostPaidPersonTxt);
+            }
+        });
     }
 
     private void nameLeastPayed(){
-        Staff leastPaidPerson = db.staffDao().getLeastPaid();
-        String leastPaidPersonTxt = "The list is empty(";
+        LiveData<Staff> leastPaidPerson = db.staffDao().getLeastPaid();
 
-        if (leastPaidPerson != null) {
-            leastPaidPersonTxt = leastPaidPerson.sPosition + " " +
-                    leastPaidPerson.sName + " " +
-                    leastPaidPerson.sSurname + " - $" +
-                    leastPaidPerson.sSalary;
+        leastPaidPerson.observe(getViewLifecycleOwner(), new Observer<Staff>(){
 
-        }
+            @Override
+            public void onChanged(Staff staff) {
+                if (staff != null){
+                    leastPaidPersonTxt = staff.sPosition + " " +
+                            staff.sName + " " +
+                            staff.sSurname + " - $" +
+                            staff.sSalary;
+                } else {
+                    leastPaidPersonTxt = "The list is empty(";
+                }
 
-        leastPayedStaff.setText(leastPaidPersonTxt);
+                leastPayedStaff.setText(leastPaidPersonTxt);
+            }
+        });
     }
 
     private void getNumberOfPatients(){

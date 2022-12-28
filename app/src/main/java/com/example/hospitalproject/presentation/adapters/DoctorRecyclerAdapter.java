@@ -62,13 +62,8 @@ public class DoctorRecyclerAdapter extends RecyclerView.Adapter<DoctorRecyclerAd
             name.setText(doctor.sName);
             surname.setText(doctor.sSurname);
             employmentDate.setText(doctor.sEmploymentDate);
-            deleteDoctorButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.deleteStaff(doctor);
-                    Navigation.findNavController(view).navigate(R.id.action_mainDoctorFragment_to_deleteLoadingFragment);
-                    Toast.makeText(view.getContext(), "Doctor was deleted", Toast.LENGTH_SHORT).show();
-                }
+            deleteDoctorButton.setOnClickListener(view ->{
+                listener.deleteStaff(doctor);
             });
 
         }
