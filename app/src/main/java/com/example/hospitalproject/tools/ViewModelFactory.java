@@ -1,15 +1,13 @@
 package com.example.hospitalproject.tools;
 
-import android.app.Activity;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hospitalproject.presentation.users.mainDoctor.MainDoctorViewModel;
-import com.example.hospitalproject.room.StaffRepository;
+import com.example.hospitalproject.room.repository.StaffRepository;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
     private StaffRepository repository;

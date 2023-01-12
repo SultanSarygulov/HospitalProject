@@ -1,8 +1,10 @@
-package com.example.hospitalproject.presentation.users;
+package com.example.hospitalproject.presentation.users.nurse;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.hospitalproject.presentation.adapters.PatientRecyclerAdapter;
 import com.example.hospitalproject.R;
+import com.example.hospitalproject.presentation.users.doctor.DoctorViewModel;
 import com.example.hospitalproject.tools.listeners.DoctorListener;
 import com.example.hospitalproject.room.Patient;
 import com.example.hospitalproject.room.database.HospitalDatabase;
@@ -21,6 +24,8 @@ import java.util.List;
 public class NurseFragment extends Fragment implements DoctorListener {
 
     HospitalDatabase db;
+    DoctorViewModel doctorViewModel;
+    PatientRecyclerAdapter patientAdapter;
 
     public NurseFragment() {
         // Required empty public constructor
@@ -34,18 +39,26 @@ public class NurseFragment extends Fragment implements DoctorListener {
 
         db = HospitalDatabase.getDatabase(requireContext());
 
+        doctorViewModel = ViewModelProviders.of(this).get(DoctorViewModel.class);
+
         RecyclerView patientRecyclerView = view.findViewById(R.id.patient_list_nurse);
-        PatientRecyclerAdapter adapter = new PatientRecyclerAdapter(requireContext(), this);
-        patientRecyclerView.setAdapter(adapter);
-        adapter.setList(getPatientsList());
+        patientAdapter = new PatientRecyclerAdapter(requireContext(), this);
+        patientRecyclerView.setAdapter(patientAdapter);
+        getPatientsList();
 
         return view;
     }
 
 
-    private List<Patient> getPatientsList() {
-        List<Patient> patientsList = db.patientDao().getPatients();
-        return patientsList;
+    private void getPatientsList() {
+        doctorViewModel.readPatients.observe(getViewLifecycleOwner(), new Observer<List<Patient>>(){
+
+            @Override
+            public void onChanged(List<Patient> patients) {
+                patientAdapter.setList(patients);
+            }
+
+        });
     }
 
     @Override

@@ -138,7 +138,7 @@ public class MainDoctorFragment extends Fragment implements Listeners {
     @Override
     public void deleteStaff(Staff staff) {
 
-        db.staffDao().deleteStaff(staff);
+        mainDoctorViewModel.deleteStaff(staff);
         Toast.makeText(requireContext(), staff.sPosition + " was deleted", Toast.LENGTH_SHORT).show();
     }
 

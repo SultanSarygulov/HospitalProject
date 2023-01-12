@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/patientFragment"
-        android:name="com.example.hospitalproject.presentation.users.PatientFragment"
+        android:name="com.example.hospitalproject.presentation.users.patient.PatientFragment"
         android:label="Пациент"
         tools:layout="@layout/fragment_patient" >
         <argument
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/doctorFragment"
-        android:name="com.example.hospitalproject.presentation.users.DoctorFragment"
+        android:name="com.example.hospitalproject.presentation.users.doctor.DoctorFragment"
         android:label="Врач"
         tools:layout="@layout/fragment_doctor" >
         <argument
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/nurseFragment"
-        android:name="com.example.hospitalproject.presentation.users.NurseFragment"
+        android:name="com.example.hospitalproject.presentation.users.nurse.NurseFragment"
         android:label="Медсестра"
         tools:layout="@layout/fragment_nurse" >
         <argument

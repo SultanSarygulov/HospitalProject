@@ -1,5 +1,6 @@
 package com.example.hospitalproject.room;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -27,5 +28,5 @@ public interface PatientDao {
     String getPatientNum();
 
     @Query("SELECT * FROM patient_table")
-    List<Patient> getPatients();
+    LiveData<List<Patient>> getPatients();
 }

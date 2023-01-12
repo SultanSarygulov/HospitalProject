@@ -1,6 +1,9 @@
-package com.example.hospitalproject.room;
+package com.example.hospitalproject.room.repository;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.hospitalproject.room.Staff;
+import com.example.hospitalproject.room.StaffDao;
 
 import java.util.List;
 
@@ -18,5 +21,9 @@ public class StaffRepository {
         readNurses = staffDao.getNurses();
         readMostPaid = staffDao.getMostPaid();
         readLeastPaid = staffDao.getLeastPaid();
+    }
+
+    public void deleteStaff(Staff staff){
+        staffDao.deleteStaff(staff);
     }
 }

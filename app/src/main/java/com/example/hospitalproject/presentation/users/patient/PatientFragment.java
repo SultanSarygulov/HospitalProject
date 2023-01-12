@@ -1,4 +1,4 @@
-package com.example.hospitalproject.presentation.users;
+package com.example.hospitalproject.presentation.users.patient;
 
 import android.app.Dialog;
 import android.os.Build;

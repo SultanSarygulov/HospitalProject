@@ -1,4 +1,4 @@
-package com.example.hospitalproject.presentation.users;
+package com.example.hospitalproject.presentation.users.doctor;
 
 import android.app.Dialog;
 import android.os.Build;
@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.hospitalproject.presentation.adapters.PatientRecyclerAdapter;
 import com.example.hospitalproject.R;
+import com.example.hospitalproject.presentation.users.mainDoctor.MainDoctorViewModel;
 import com.example.hospitalproject.tools.listeners.DoctorListener;
 import com.example.hospitalproject.room.Diagnosis;
 import com.example.hospitalproject.room.Patient;
@@ -40,6 +43,9 @@ public class DoctorFragment extends Fragment implements DoctorListener {
     private Staff currentDoctor;
     HospitalDatabase db;
     Dialog dialog;
+    PatientRecyclerAdapter patientAdapter;
+
+    DoctorViewModel doctorViewModel;
 
     public DoctorFragment() {
         // Required empty public constructor
@@ -57,12 +63,9 @@ public class DoctorFragment extends Fragment implements DoctorListener {
         args = DoctorFragmentArgs.fromBundle(getArguments());
         currentDoctor = args.getCurrentDoctor();
 
-        RecyclerView patientRecyclerView = view.findViewById(R.id.patient_list);
 
 
-        PatientRecyclerAdapter adapter = new PatientRecyclerAdapter(requireContext(), this);
-        patientRecyclerView.setAdapter(adapter);
-        adapter.setList(getPatientsList());
+
 
         return view;
     }
@@ -71,20 +74,33 @@ public class DoctorFragment extends Fragment implements DoctorListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        doctorViewModel = ViewModelProviders.of(this).get(DoctorViewModel.class);
+
         String fullName = currentDoctor.sName + " " + currentDoctor.sSurname;
 
         doctorTV.setText(fullName);
+
+        RecyclerView patientRecyclerView = view.findViewById(R.id.patient_list);
+        patientAdapter = new PatientRecyclerAdapter(requireContext(), this);
+        patientRecyclerView.setAdapter(patientAdapter);
+
+        getPatientsList();
     }
 
-    private List<Patient> getPatientsList() {
-        List<Patient> patientsList = db.patientDao().getPatients();
-        return  patientsList;
+    private void getPatientsList() {
+        doctorViewModel.readPatients.observe(getViewLifecycleOwner(), new Observer<List<Patient>>(){
+
+            @Override
+            public void onChanged(List<Patient> patients) {
+                patientAdapter.setList(patients);
+            }
+
+        });
     }
 
     @Override
     public void deletePatient(Patient patient) {
-        db.patientDao().deletePatient(patient);
-        Navigation.findNavController(view).navigate(R.id.action_doctorFragment_to_deleteLoadingFragment);
+        doctorViewModel.deletePatient(patient);
         Toast.makeText(view.getContext(), "Patient was deleted", Toast.LENGTH_SHORT).show();
     }
 

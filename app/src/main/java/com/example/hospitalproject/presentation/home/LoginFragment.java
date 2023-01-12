@@ -3,6 +3,7 @@ package com.example.hospitalproject.presentation.home;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -66,10 +67,10 @@ public class LoginFragment extends Fragment {
 
                     //Navigate to Main Doctor page
                     Navigation.findNavController(clickView).navigate(R.id.action_loginFragment_to_mainDoctorFragment);
-                } else if (checkForPatient()) {
-
-                    //Navigate tp Patient page
-                    Navigation.findNavController(clickView).navigate(action);
+////                } else if (checkForPatient()) {
+//
+//                    //Navigate tp Patient page
+//                    Navigation.findNavController(clickView).navigate(action);
                 } else if (checkForStaff()){
 
                     //Navigate to Doctor or Nurse page
@@ -93,25 +94,32 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private boolean checkForPatient() {
-
-        List<Patient> patientList = db.patientDao().getPatients();
-
-
-        String nameInput = nameEt.getText().toString().trim();
-        String passwordInput = passwordEt.getText().toString().trim();
-
-        for (Patient patient:patientList){
-            if ((patient.pName + " " + patient.pSurname).equals(nameInput) &&
-                    (patient.pPassword).equals(passwordInput)){
-
-                action = LoginFragmentDirections.actionLoginFragmentToPatientFragment(patient);
-
-                return true;
-            }
-        }
-        return false;
-    }
+//    private boolean checkForPatient() {
+//
+//        List<Patient> patientList;
+//
+//        db.patientDao().getPatients().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
+//            @Override
+//            public void onChanged(List<Patient> patients) {
+//                patientList = patients;
+//            }
+//        });
+//
+//
+//        String nameInput = nameEt.getText().toString().trim();
+//        String passwordInput = passwordEt.getText().toString().trim();
+//
+//        for (Patient patient:patientList){
+//            if ((patient.pName + " " + patient.pSurname).equals(nameInput) &&
+//                    (patient.pPassword).equals(passwordInput)){
+//
+//                action = LoginFragmentDirections.actionLoginFragmentToPatientFragment(patient);
+//
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     private boolean checkForStaff() {
 
