@@ -1,4 +1,4 @@
-package com.example.hospitalproject.presentation.users;
+package com.example.hospitalproject.presentation.users.addStaff;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hospitalproject.R;
+import com.example.hospitalproject.presentation.users.mainDoctor.MainDoctorViewModel;
 import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 
@@ -30,9 +32,10 @@ public class AddStaffFragment extends Fragment {
     TextView enterSurnameEt;
     TextView enterSalaryEt;
     TextView enterPasswordEt;
-    HospitalDatabase db;
     AddStaffFragmentArgs args;
     Button addNewStaffButton;
+
+    AddStaffViewModel addStaffViewModel;
 
     public AddStaffFragment() {
         // Required empty public constructor
@@ -44,7 +47,6 @@ public class AddStaffFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_staff, container, false);
 
-        db = HospitalDatabase.getDatabase(requireContext());
 
         args = AddStaffFragmentArgs.fromBundle(getArguments());
 
@@ -64,9 +66,12 @@ public class AddStaffFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        addStaffViewModel = ViewModelProviders.of(this).get(AddStaffViewModel.class);
+
         addNewStaffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Create new staff member
                 Staff newStaff = new Staff();
                 newStaff.sName = enterNameEt.getText().toString().trim();
                 newStaff.sSurname = enterSurnameEt.getText().toString().trim();
@@ -74,12 +79,13 @@ public class AddStaffFragment extends Fragment {
                 newStaff.sPassword = enterPasswordEt.getText().toString().trim();
                 newStaff.sPosition = args.getPosition();
 
+                // Get time and date
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 LocalDateTime now = LocalDateTime.now();
                 newStaff.sEmploymentDate = dtf.format(now);
 
                 Toast.makeText(requireContext(), "New " + newStaff.sPosition.toLowerCase(Locale.ROOT) + " added", Toast.LENGTH_SHORT).show();
-                db.staffDao().addStaff(newStaff);
+                addStaffViewModel.staffRepository.addStaff(newStaff);
                 Navigation.findNavController(view).navigateUp();
             }
         });

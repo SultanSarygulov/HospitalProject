@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/addStaffFragment"
-        android:name="com.example.hospitalproject.presentation.users.AddStaffFragment"
+        android:name="com.example.hospitalproject.presentation.users.addStaff.AddStaffFragment"
         android:label="Добавить сотрудника"
         tools:layout="@layout/fragment_add_staff">
         <action

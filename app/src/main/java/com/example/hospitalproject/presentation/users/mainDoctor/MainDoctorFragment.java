@@ -41,7 +41,6 @@ public class MainDoctorFragment extends Fragment implements Listeners {
 
     Button addDoctor;
     Button addNurse;
-    HospitalDatabase db;
     TextView mostPayedStaff;
     TextView leastPayedStaff;
     TextView patientNumTV;
@@ -62,9 +61,6 @@ public class MainDoctorFragment extends Fragment implements Listeners {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main_doctor, container, false);
-
-        db = HospitalDatabase.getDatabase(requireContext());
-
 
         addNurse = view.findViewById(R.id.addNurseButton);
         addDoctor = view.findViewById(R.id.addDoctorButton);
@@ -94,7 +90,7 @@ public class MainDoctorFragment extends Fragment implements Listeners {
         nurseRecyclerView.setAdapter(nurseAdapter);
 
         // Set LiveData observer for Doctor RecyclerView
-        mainDoctorViewModel.readDoctors.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
+        mainDoctorViewModel.doctorsList.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
 
             @Override
             public void onChanged(List<Staff> staffList) {
@@ -103,7 +99,7 @@ public class MainDoctorFragment extends Fragment implements Listeners {
         });
 
         // Set LiveData observer for Nurse RecyclerView
-        mainDoctorViewModel.readNurses.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
+        mainDoctorViewModel.nursesList.observe(getViewLifecycleOwner(), new Observer<List<Staff>>(){
 
             @Override
             public void onChanged(List<Staff> staffList) {
@@ -190,7 +186,7 @@ public class MainDoctorFragment extends Fragment implements Listeners {
     }
 
     private void getNumberOfPatients(){
-        String patientNum = db.patientDao().getPatientNum();
+        String patientNum = mainDoctorViewModel.patientNum;
         patientNumTV.setText(patientNum);
     }
 }
