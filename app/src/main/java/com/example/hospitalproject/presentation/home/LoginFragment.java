@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -21,6 +22,7 @@ import com.example.hospitalproject.room.Patient;
 import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +35,8 @@ public class LoginFragment extends Fragment {
     HospitalDatabase db;
     View view;
     NavDirections action;
+
+    LoginViewModel loginViewModel;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -52,6 +56,8 @@ public class LoginFragment extends Fragment {
         loginButton = view.findViewById(R.id.loginButton);
         registerTxtButton = view.findViewById(R.id.register_txt_btn);
 
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+
         loginButton.setOnClickListener(clickView -> {
 
             String name = nameEt.getText().toString().trim();
@@ -67,10 +73,10 @@ public class LoginFragment extends Fragment {
 
                     //Navigate to Main Doctor page
                     Navigation.findNavController(clickView).navigate(R.id.action_loginFragment_to_mainDoctorFragment);
-////                } else if (checkForPatient()) {
-//
-//                    //Navigate tp Patient page
-//                    Navigation.findNavController(clickView).navigate(action);
+                } else if (checkForPatient()) {
+
+                    //Navigate to Patient page
+                    Navigation.findNavController(clickView).navigate(action);
                 } else if (checkForStaff()){
 
                     //Navigate to Doctor or Nurse page
@@ -94,32 +100,34 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-//    private boolean checkForPatient() {
-//
-//        List<Patient> patientList;
-//
-//        db.patientDao().getPatients().observe(getViewLifecycleOwner(), new Observer<List<Patient>>() {
-//            @Override
-//            public void onChanged(List<Patient> patients) {
-//                patientList = patients;
-//            }
-//        });
-//
-//
-//        String nameInput = nameEt.getText().toString().trim();
-//        String passwordInput = passwordEt.getText().toString().trim();
-//
-//        for (Patient patient:patientList){
-//            if ((patient.pName + " " + patient.pSurname).equals(nameInput) &&
-//                    (patient.pPassword).equals(passwordInput)){
-//
-//                action = LoginFragmentDirections.actionLoginFragmentToPatientFragment(patient);
-//
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    private boolean checkForPatient() {
+
+        List<Patient> patientList = new ArrayList<Patient>();
+
+        loginViewModel.patientsList.observe(getViewLifecycleOwner(), new Observer<List<Patient>>(){
+
+            @Override
+            public void onChanged(List<Patient> patients) {
+                patientList.addAll(patients);
+            }
+
+        });
+
+
+        String nameInput = nameEt.getText().toString().trim();
+        String passwordInput = passwordEt.getText().toString().trim();
+
+        for (Patient patient:patientList){
+            if ((patient.pName + " " + patient.pSurname).equals(nameInput) &&
+                    (patient.pPassword).equals(passwordInput)){
+
+                action = LoginFragmentDirections.actionLoginFragmentToPatientFragment(patient);
+
+                return true;
+            }
+        }
+        return false;
+    }
 
     private boolean checkForStaff() {
 

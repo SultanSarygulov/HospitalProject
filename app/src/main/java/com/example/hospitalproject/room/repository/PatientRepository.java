@@ -23,4 +23,7 @@ public class PatientRepository {
     public void deletePatient(Patient patient){ patientDao.deletePatient(patient);}
 
     public void addPatient(Patient patient){ patientDao.addPatient(patient);}
+    public void updatePatientInfo(Patient patient){
+        patientDao.updatePatientInfo(patient);
+    };
 }

@@ -1,5 +1,6 @@
 package com.example.hospitalproject.room;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -13,5 +14,5 @@ public interface DiagnosisDao {
     void addDiagnosis(Diagnosis diagnosis);
 
     @Query("SELECT * FROM diagnosis_table WHERE patient_id = :id")
-    List<Diagnosis> getDiagnosis(long id);
+    LiveData<List<Diagnosis>> getDiagnosis(long id);
 }

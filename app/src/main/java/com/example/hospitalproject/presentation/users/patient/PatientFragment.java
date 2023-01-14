@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
@@ -21,8 +24,10 @@ import android.widget.TextView;
 
 import com.example.hospitalproject.presentation.adapters.DiagnosisAdapter;
 import com.example.hospitalproject.R;
+import com.example.hospitalproject.presentation.users.mainDoctor.MainDoctorViewModel;
 import com.example.hospitalproject.room.Diagnosis;
 import com.example.hospitalproject.room.Patient;
+import com.example.hospitalproject.room.Staff;
 import com.example.hospitalproject.room.database.HospitalDatabase;
 
 import java.util.List;
@@ -30,7 +35,7 @@ import java.util.List;
 public class PatientFragment extends Fragment {
 
     View view;
-    HospitalDatabase db;
+    PatientViewModel patientViewModel;
     private PatientFragmentArgs args;
     Patient currentPatient;
     TextView nameTxt;
@@ -39,6 +44,8 @@ public class PatientFragment extends Fragment {
     TextView heightTxt;
     TextView weightTxt;
     TextView bloodType;
+
+    DiagnosisAdapter diagnosisAdapter;
 
     Button updatePatientButton;
     Dialog dialog;
@@ -70,13 +77,6 @@ public class PatientFragment extends Fragment {
         weightTxt = view.findViewById(R.id.weight_txt);
         bloodType = view.findViewById(R.id.blood_group_txt);
 
-        dialog = new Dialog(requireContext());
-
-        args = PatientFragmentArgs.fromBundle(getArguments());
-        currentPatient = args.getCurrentPatient();
-
-        db = HospitalDatabase.getDatabase(requireContext());
-
         return view;
     }
 
@@ -84,6 +84,13 @@ public class PatientFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        patientViewModel = ViewModelProviders.of(this).get(PatientViewModel.class);
+
+        dialog = new Dialog(requireContext());
+
+        args = PatientFragmentArgs.fromBundle(getArguments());
+        currentPatient = args.getCurrentPatient();
 
         nameTxt.setText(currentPatient.pName);
         surnameTxt.setText(currentPatient.pSurname);
@@ -97,9 +104,9 @@ public class PatientFragment extends Fragment {
         });
 
         RecyclerView diagnosisRecyclerView = view.findViewById(R.id.diagnosis_list);
-        DiagnosisAdapter diagnosisAdapter = new DiagnosisAdapter(requireContext());
+        diagnosisAdapter = new DiagnosisAdapter(requireContext());
         diagnosisRecyclerView.setAdapter(diagnosisAdapter);
-        diagnosisAdapter.setList(getDiagnosisList());
+        setDiagnosisAdapterList();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -146,7 +153,7 @@ public class PatientFragment extends Fragment {
         currentPatient.weight = Integer.parseInt(updateWeightEt.getText().toString());
         currentPatient.bloodType = updateBloodGroupEt.getText().toString();
 
-        db.patientDao().updatePatientInfo(currentPatient);
+        patientViewModel.patientRepository.updatePatientInfo(currentPatient);
 
         dialog.dismiss();
 
@@ -162,11 +169,16 @@ public class PatientFragment extends Fragment {
         bloodType.setText("Группа крови: " +currentPatient.bloodType);
     }
 
-    private List<Diagnosis> getDiagnosisList() {
-        List<Diagnosis> diagnosisList = db.diagnosisDao().getDiagnosis(currentPatient.id);
+    private void setDiagnosisAdapterList() {
 
-        Log.d("Nigger", "Diagnosis " + diagnosisList.size());
+        LiveData<List<Diagnosis>> diagnosisList = patientViewModel.getDiagnosis(currentPatient.id);
 
-        return diagnosisList;
+        diagnosisList.observe(getViewLifecycleOwner(), new Observer<List<Diagnosis>>(){
+
+            @Override
+            public void onChanged(List<Diagnosis> diagnoses) {
+                diagnosisAdapter.setList(diagnoses);
+            }
+        });
     }
 }

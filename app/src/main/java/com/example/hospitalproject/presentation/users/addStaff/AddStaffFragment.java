@@ -18,8 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hospitalproject.R;
-import com.example.hospitalproject.presentation.users.mainDoctor.MainDoctorViewModel;
-import com.example.hospitalproject.room.database.HospitalDatabase;
 import com.example.hospitalproject.room.Staff;
 
 import java.time.LocalDateTime;
@@ -85,7 +83,7 @@ public class AddStaffFragment extends Fragment {
                 newStaff.sEmploymentDate = dtf.format(now);
 
                 Toast.makeText(requireContext(), "New " + newStaff.sPosition.toLowerCase(Locale.ROOT) + " added", Toast.LENGTH_SHORT).show();
-                addStaffViewModel.staffRepository.addStaff(newStaff);
+                addStaffViewModel.addStaff(newStaff);
                 Navigation.findNavController(view).navigateUp();
             }
         });
